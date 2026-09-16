@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux & Bandit Flashcards</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #f5f5f5;
+    padding: 20px;
+}
+
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.flashcard-set {
+    margin-bottom: 40px;
+}
+
+.flashcard-set h2 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+}
+
+.flashcard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.flashcard {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.flashcard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.question {
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 10px;
+    min-height: 30px;
+}
+
+.answer {
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+code {
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    color: #d63384;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+    .flashcard-grid {
+        grid-template-columns: 1fr;
+    }
+    body {
+        padding: 10px;
+    }
+}
+
+/* Accessibility: High contrast for focus states */
+.flashcard:focus-visible {
+    outline: 3px solid #667eea;
+    outline-offset: 2px;
+}/* We'll add CSS here */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Linux & Bandit Quick Reference</h1>
+    </header>
+    <main>
+         <!-- START: MOVING AROUND SECTION -->
+        <section class="flashcard-set">
+            <h2>Moving Around</h2>
+
+            <div class="flashcard">
+                <div class="question">Where am I?</div>
+                <div class="answer"><code>pwd</code> prints the current directory.</div>
+            </div>
+
+            <div class="flashcard">
+                <div class="question">What is here?</div>
+                <div class="answer"><code>ls</code> lists visible items. <code>ls -a</code> also shows hidden items. <code>ls -la</code> adds details such as permissions, owner, and size.</div>
+            </div>
+
+            <div class="flashcard">
+                <div class="question">Enter a folder</div>
+                <div class="answer"><code>cd &lt;folder&gt;</code> changes directory. Example: <code>cd inhere</code>.</div>
+            </div>
+            <div class="flashcard">
+                <div class="question">Go up one folder</div>
+                <div class="answer"><code>cd ..</code> moves up one directory level.<code>.</code> means the current directory.<code>..</code> means the parent directory.</div>
+            </div>
+            <div class="flashcard">
+                <div class="question">Go to home directory</div>
+                <div class="answer"><code>cd ~</code> or just <code>cd</code> takes you to your home directory.</div>
+            </div>
+            <div class="flashcard">
+                <div class="question">Return to the last folder(Linux)</div>
+                <div class="answer"><code>cd -</code> switches to the previous directory.</div>
+            </div>
+            <div class="flashcard">
+                <div class="question">Why does<code>cat &lt;folder&gt;</code>fail?</div>
+                <div class="answer"><code>cat</code> is used to display the contents of files, not directories. To view the contents of a directory, use <code>ls</code>.</div>
+            </div>
+            <h2>Reading And Identifying Files</h2>
+
+        </section>
+        <!-- END: MOVING AROUND SECTION -->
+    </main>
+</body>
+</html>
