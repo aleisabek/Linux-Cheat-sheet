@@ -1,96 +1,19 @@
-\# Linux \& Bandit Flashcards
+# Linux & Bandit command deck
 
+**Live:** https://aleisabek.github.io/Linux-Cheat-sheet/
 
+190 Linux command flashcards in 12 topics, built for OverTheWire's [Bandit](https://overthewire.org/wargames/bandit/) wargame and everyday Linux admin. Where Windows has an equivalent, the PowerShell version is on the back of the card.
 
-A simple, interactive HTML flashcard reference for learning Linux commands and preparing for OverTheWire's Bandit challenge.
+## Features
 
+- Search every card, or filter by topic (files, finding, filtering text, encoding, archives, networking, privilege, git and more)
+- A Bandit study order: which topics to review, in roughly the order the game needs them. Techniques only, no level solutions.
+- Drill mode: one shuffled card at a time (Space flips, → next, Esc closes)
+- Three color modes and background code rain, borrowed from SkillQuest
+- One self-contained HTML file, works on phone and desktop
 
+## How it's built
 
-\## What's Inside
+This page is generated. The cards live in **SkillQuest**, my offline IT and security practice app, where I study them with spaced repetition. An export script (`tools/export-deck.js` in that project) writes this `index.html` from the same deck, so the site and the app never drift apart. To update: add cards in SkillQuest, run `npm run export-deck -- --out <this repo>/index.html`, commit, push.
 
-
-
-\- \*\*Moving Around\*\* — Navigation commands (`pwd`, `cd`, `ls`)
-
-\- \*\*Reading and Identifying Files\*\* — How to inspect files (`cat`, `file`, `du`)
-
-\- \*\*Finding Files\*\* — Search tools (`find`, `grep`)
-
-\- \*\*Filtering Text and Pipelines\*\* — Data processing (`grep`, `sort`, `uniq`, `strings`)
-
-\- \*\*Decoding and Transforming Data\*\* — Format conversion (Base64, ROT13, hex)
-
-\- \*\*Compression and Archives\*\* — Working with compressed files (`tar`, `gzip`, `bzip2`)
-
-\- \*\*Remote Connections\*\* — SSH and networking (`ssh`, `scp`, `ping`)
-
-\- \*\*PowerShell Equivalents\*\* — Windows alternatives
-
-
-
-\## How to Use
-
-
-
-1\. Open `flashcards.html` in any web browser
-
-2\. Read each card to learn the command and its purpose
-
-3\. Use as a quick reference while solving Bandit levels or practicing Linux
-
-
-
-\## Features
-
-
-
-\- Clean, accessible design
-
-\- Organized by topic
-
-\- Easy to read on mobile and desktop
-
-\- Printable reference guide included (PDF)
-
-
-
-\## Getting Started with Bandit
-
-
-
-To use this while playing OverTheWire's Bandit:
-
-```bash
-
-ssh -p 2220 bandit0@bandit.labs.overthewire.org
-
-```
-
-
-
-\## Future Improvements
-
-
-
-\- Add interactive examples that run in the browser
-
-\- Create Anki flashcard deck for spaced repetition
-
-\- Add difficulty levels to cards
-
-
-
-\## Author
-
-
-
-Created as a learning resource for cybersecurity studies at UHD.
-
-
-
-\---
-
-
-
-\*\*Good for learning?\*\* \[Let me know](https://github.com) if you have suggestions!
-
+By Alei Sabek, cybersecurity student at UHD. Portfolio: https://aleisabek.github.io

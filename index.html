@@ -1,146 +1,253 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="matrix">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linux & Bandit Flashcards</title>
-    <style>
-        * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background: #f5f5f5;
-    padding: 20px;
-}
-
-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 30px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.flashcard-set {
-    margin-bottom: 40px;
-}
-
-.flashcard-set h2 {
-    color: #667eea;
-    margin-bottom: 15px;
-    font-size: 1.5em;
-    border-bottom: 2px solid #667eea;
-    padding-bottom: 10px;
-}
-
-.flashcard-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 15px;
-}
-
-.flashcard {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.flashcard:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.question {
-    font-weight: bold;
-    color: #667eea;
-    margin-bottom: 10px;
-    min-height: 30px;
-}
-
-.answer {
-    color: #666;
-    font-size: 0.95em;
-    line-height: 1.5;
-}
-
-code {
-    background: #f0f0f0;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'Courier New', monospace;
-    color: #d63384;
-}
-
-/* Mobile optimization */
-@media (max-width: 768px) {
-    .flashcard-grid {
-        grid-template-columns: 1fr;
-    }
-    body {
-        padding: 10px;
-    }
-}
-
-/* Accessibility: High contrast for focus states */
-.flashcard:focus-visible {
-    outline: 3px solid #667eea;
-    outline-offset: 2px;
-}/* We'll add CSS here */
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linux & Bandit Command Deck</title>
+<meta name="description" content="190 Linux command flashcards for OverTheWire Bandit and everyday admin work, with PowerShell equivalents.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=VT323&display=swap">
+<style>
+:root,:root[data-theme="matrix"]{--bg:#030806;--panel:rgba(6,18,12,.9);--panel2:rgba(57,255,136,.07);--text:#c9ffdc;--muted:#6fae86;--line:#1b4a31;--accent:#39ff88;--accent2:#00d1ff;--accent-soft:rgba(57,255,136,.12);--on-accent:#021a0c;--glow:0 0 12px rgba(57,255,136,.45);color-scheme:dark}
+:root[data-theme="cyber"]{--bg:#06051a;--panel:rgba(16,12,40,.92);--panel2:rgba(0,229,255,.07);--text:#e7e2ff;--muted:#9a90d6;--line:#33296e;--accent:#00e5ff;--accent2:#ff2bd6;--accent-soft:rgba(0,229,255,.12);--on-accent:#02121a;--glow:0 0 12px rgba(0,229,255,.5)}
+:root[data-theme="amber"]{--bg:#0a0600;--panel:rgba(24,15,2,.92);--panel2:rgba(255,176,0,.07);--text:#ffdca6;--muted:#b98c4d;--line:#4d3510;--accent:#ffb000;--accent2:#ff6b3d;--accent-soft:rgba(255,176,0,.12);--on-accent:#1a0f00;--glow:0 0 12px rgba(255,176,0,.45)}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 "JetBrains Mono","Cascadia Code",Consolas,ui-monospace,monospace;min-height:100vh}
+#rain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.14}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:30;background:repeating-linear-gradient(to bottom,rgba(255,255,255,.025) 0 1px,transparent 1px 3px),radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.55) 100%)}
+.wrap{position:relative;z-index:2;max-width:1040px;margin:0 auto;padding-block:20px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--accent2)}
+a:hover{text-shadow:var(--glow)}
+code{font-family:inherit;font-size:.92em;background:var(--panel2);color:var(--accent);padding:1px 6px;border:1px solid var(--line);border-radius:3px;overflow-wrap:anywhere}
+button{font:inherit;font-size:.85rem;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--text);border-radius:4px;padding:6px 12px;transition:border-color .15s,box-shadow .15s,color .15s}
+button:hover{border-color:var(--accent);color:var(--accent);box-shadow:var(--glow)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem}
+button.primary::before{content:"> "}
+button.primary:hover{color:var(--on-accent);filter:brightness(1.1)}
+.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:12px}
+.logo{font-family:"VT323",monospace;font-size:2rem;line-height:1;color:var(--accent);text-shadow:var(--glow);text-decoration:none}
+.logo small{font-family:"JetBrains Mono",monospace;font-size:.7rem;color:var(--muted);text-shadow:none;margin-left:6px}
+.tools{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.tools button,.tools .btn{padding:4px 10px}
+.btn{font-size:.85rem;border:1px solid var(--line);border-radius:4px;color:var(--text);text-decoration:none}
+.btn:hover{border-color:var(--accent);color:var(--accent);box-shadow:var(--glow);text-shadow:none}
+h1{font-family:"VT323",monospace;font-weight:400;font-size:clamp(2rem,6vw,2.8rem);line-height:1.1;margin:28px 0 8px;color:var(--accent);text-shadow:var(--glow);text-wrap:balance}
+h1::before{content:"root@bandit:~# ";color:var(--muted);text-shadow:none;font-size:.6em}
+h1::after{content:"█";margin-left:6px;font-size:.8em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+h2{font-size:.9rem;margin:34px 0 12px;color:var(--accent2);text-transform:uppercase;letter-spacing:.12em;font-weight:600}
+h2::before{content:"// ";color:var(--muted)}
+.sub{color:var(--muted);margin:0;max-width:68ch}
+.sub::before{content:"# ";color:var(--accent)}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pill{border:1px solid var(--line);border-radius:4px;padding:3px 10px;font-size:.8rem;background:var(--panel);white-space:nowrap}
+.pill b{color:var(--accent)}
+.card{position:relative;background:var(--panel);border:1px solid var(--line);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));transition:border-color .2s;min-width:0}
+.card::before{content:"";position:absolute;top:0;left:0;width:40px;height:2px;background:var(--accent);box-shadow:var(--glow)}
+.card:hover{border-color:var(--accent)}
+.guide{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:0;padding:0;list-style:none;counter-reset:s}
+.guide button{width:100%;height:100%;text-align:left;border:0;padding:14px;counter-increment:s;color:var(--text)}
+.guide button:hover{box-shadow:none}
+.guide button::before{content:"[ step 0" counter(s) " ]";display:block;font-size:.7rem;letter-spacing:.12em;color:var(--accent2);margin-bottom:4px}
+.guide .card[data-on=true]{border-color:var(--accent);box-shadow:var(--glow)}
+.guide small{display:block;color:var(--muted)}
+.note{color:var(--muted);font-size:.85rem;margin:10px 0 0}
+.controls{position:sticky;top:0;z-index:5;background:var(--bg);padding-block:12px;border-bottom:1px solid var(--line);display:grid;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.prompt{flex:1 1 260px;min-width:0;display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:0 12px}
+.prompt span{color:var(--accent)}
+.prompt input{flex:1;min-width:0;background:transparent;border:0;color:var(--text);font:inherit;padding:10px 0;outline:none}
+.prompt:focus-within{border-color:var(--accent);box-shadow:var(--glow)}
+.chip{font-size:.78rem;padding:3px 10px;color:var(--muted);text-transform:lowercase}
+.chip::before{content:"./";opacity:.55}
+.chip[aria-pressed=true]{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);box-shadow:var(--glow)}
+.toggle{display:inline-flex;gap:6px;align-items:center;color:var(--muted);font-size:.85rem;cursor:pointer;margin-right:10px}
+.toggle input{accent-color:var(--accent)}
+.count{color:var(--muted);font-size:.8rem;margin:14px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.grid button.face{all:unset;cursor:pointer;display:block;padding:18px 18px 12px}
+.grid button.face:focus-visible{outline:2px solid var(--accent);outline-offset:-4px}
+.tag{font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;color:var(--accent2);margin-bottom:8px}
+.tag::before{content:"[ "}.tag::after{content:" ]"}
+.f{font-weight:600;overflow-wrap:anywhere}
+.hint{color:var(--muted);font-size:.72rem;margin-top:10px}
+.hint::before{content:"$ "}
+.b{border-top:1px dashed var(--line);margin:0 18px;padding:12px 0 16px;font-size:.9rem;overflow-wrap:anywhere}
+.ps{display:block;margin-top:8px;color:var(--muted);font-size:.85rem}
+body:not(.show-ps) .ps{display:none}
+.small{color:var(--muted)}
+.empty{color:var(--muted)}
+.drill{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.82);display:grid;place-items:center;padding:16px}
+.drill .card{width:min(620px,100%);border-color:var(--accent);box-shadow:var(--glow)}
+.drill .in{padding:22px;display:grid;gap:14px}
+.drill .flash{min-height:220px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-size:1.1rem;cursor:pointer;user-select:none;padding:16px;border:1px dashed var(--line)}
+.drill .flash.back{font-size:.95rem;text-align:left;align-items:flex-start;border-color:var(--accent2)}
+.drill .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;font-size:.8rem;color:var(--muted)}
+footer{margin-top:56px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:.8rem}
+footer::before{content:"-- ";}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){h1::after{animation:none}#rain{display:none}}
+</style>
 </head>
 <body>
-    <header>
-        <h1>Linux & Bandit Quick Reference</h1>
-    </header>
-    <main>
-         <!-- START: MOVING AROUND SECTION -->
-        <section class="flashcard-set">
-            <h2>Moving Around</h2>
+<canvas id="rain" aria-hidden="true"></canvas>
+<div class="wrap">
+<div class="top">
+  <a class="logo" href="https://aleisabek.github.io">bandit.deck<small>v2026-10-27</small></a>
+  <div class="tools">
+    <button type="button" id="themeBtn" title="Switch color mode">◐ matrix</button>
+    <button type="button" id="rainBtn" title="Background code rain on/off">⁂ rain</button>
+    <a class="btn" href="https://aleisabek.github.io">← portfolio</a>
+  </div>
+</div>
 
-            <div class="flashcard">
-                <div class="question">Where am I?</div>
-                <div class="answer"><code>pwd</code> prints the current directory.</div>
-            </div>
+<h1>Linux &amp; Bandit command deck</h1>
+<p class="sub">The commands I use for OverTheWire's Bandit wargame and everyday Linux admin. Each card asks a question; click it for the command. Where Windows has one, the PowerShell equivalent is on the back.</p>
+<div class="pills"><span class="pill"><b>190</b> cards</span><span class="pill"><b>12</b> topics</span><span class="pill">updated <b>2026-10-27</b></span></div>
 
-            <div class="flashcard">
-                <div class="question">What is here?</div>
-                <div class="answer"><code>ls</code> lists visible items. <code>ls -a</code> also shows hidden items. <code>ls -la</code> adds details such as permissions, owner, and size.</div>
-            </div>
+<h2>Bandit study order</h2>
+<ol class="guide" id="guide"></ol>
+<p class="note"># Techniques only, no level solutions. OverTheWire asks players not to post them.</p>
 
-            <div class="flashcard">
-                <div class="question">Enter a folder</div>
-                <div class="answer"><code>cd &lt;folder&gt;</code> changes directory. Example: <code>cd inhere</code>.</div>
-            </div>
-            <div class="flashcard">
-                <div class="question">Go up one folder</div>
-                <div class="answer"><code>cd ..</code> moves up one directory level.<code>.</code> means the current directory.<code>..</code> means the parent directory.</div>
-            </div>
-            <div class="flashcard">
-                <div class="question">Go to home directory</div>
-                <div class="answer"><code>cd ~</code> or just <code>cd</code> takes you to your home directory.</div>
-            </div>
-            <div class="flashcard">
-                <div class="question">Return to the last folder(Linux)</div>
-                <div class="answer"><code>cd -</code> switches to the previous directory.</div>
-            </div>
-            <div class="flashcard">
-                <div class="question">Why does<code>cat &lt;folder&gt;</code>fail?</div>
-                <div class="answer"><code>cat</code> is used to display the contents of files, not directories. To view the contents of a directory, use <code>ls</code>.</div>
-            </div>
-            <h2>Reading And Identifying Files</h2>
+<h2>Deck</h2>
+<div class="controls">
+  <div class="row">
+    <label class="prompt"><span>grep&nbsp;-i</span><input type="search" id="q" placeholder="tar, base64, ssh, find -size…" aria-label="Search cards"></label>
+    <button type="button" class="primary" id="drillBtn">Drill these</button>
+  </div>
+  <div class="row" id="chips" role="group" aria-label="Filter by topic"></div>
+  <div class="row">
+    <label class="toggle"><input type="checkbox" id="reveal"> show all answers</label>
+    <label class="toggle"><input type="checkbox" id="ps" checked> PowerShell equivalents</label>
+  </div>
+</div>
+<div class="count" id="count" aria-live="polite"></div>
+<div class="grid" id="grid"></div>
+<p class="empty" id="empty" hidden># No cards match. Try a shorter search.</p>
 
-        </section>
-        <!-- END: MOVING AROUND SECTION -->
-    </main>
+<footer>Generated from the deck inside SkillQuest, my offline practice app, so this page and the app never drift apart. Built by Alei Sabek.</footer>
+</div>
+
+<div class="drill" id="drill" hidden role="dialog" aria-modal="true" aria-label="Flashcard drill">
+  <div class="card"><div class="in">
+    <div class="bar"><span id="dPos"></span><button type="button" id="dClose">✕ close</button></div>
+    <div class="tag" id="dTag"></div>
+    <div class="flash" id="dFlash" tabindex="0"></div>
+    <div class="bar"><span>space = flip · → = next · esc = close</span><span class="row"><button type="button" id="dFlip">flip</button><button type="button" class="primary" id="dNext">next</button></span></div>
+  </div></div>
+</div>
+
+<script>
+const D = {"cards":[{"f":"\u003ccode>pwd\u003c/code>","b":"Print working directory: shows the full path of the folder you are in.","t":"files"},{"f":"\u003ccode>ls -la\u003c/code>","b":"List \u003cb>all\u003c/b> files (including hidden ones that start with a dot) in \u003cb>long\u003c/b> format: permissions, owner, size, date.","t":"files"},{"f":"\u003ccode>cd ..\u003c/code> and \u003ccode>cd ~\u003c/code>","b":"\u003ccode>..\u003c/code> goes up one folder. \u003ccode>~\u003c/code> is your home folder. \u003ccode>cd\u003c/code> by itself also goes home.","t":"files"},{"f":"\u003ccode>cat\u003c/code>, \u003ccode>less\u003c/code>, \u003ccode>head\u003c/code>, \u003ccode>tail\u003c/code>","b":"cat prints a whole file. less pages through it. head / tail show the first / last 10 lines. \u003ccode>tail -f\u003c/code> follows a log as it grows.","t":"read"},{"f":"\u003ccode>grep -i \"error\" app.log\u003c/code>","b":"Show lines in app.log containing \"error\", ignoring upper/lower case. Add \u003ccode>-r\u003c/code> to search whole folders.","t":"filter"},{"f":"The pipe \u003ccode>|\u003c/code>","b":"Sends one command's output into the next: \u003ccode>ps aux | grep python\u003c/code> lists processes, then keeps only lines with \"python\".","t":"redirect"},{"f":"\u003ccode>&gt;\u003c/code> vs \u003ccode>&gt;&gt;\u003c/code>","b":"\u003ccode>&gt;\u003c/code> writes output to a file and \u003cb>overwrites\u003c/b> it. \u003ccode>&gt;&gt;\u003c/code> \u003cb>appends\u003c/b> to the end.","t":"redirect"},{"f":"Permissions \u003ccode>rwxr-xr--\u003c/code>","b":"Owner: read, write, execute. Group: read, execute. Others: read only. As a number: 754 (r=4, w=2, x=1, add them up).","t":"priv"},{"f":"\u003ccode>sudo\u003c/code>","b":"Run a single command as root (the admin account). On Ubuntu, sudo use is logged in \u003ccode>/var/log/auth.log\u003c/code>.","t":"priv"},{"f":"\u003ccode>chmod +x script.sh\u003c/code>","b":"Make a script executable. Then run it with \u003ccode>./script.sh\u003c/code>.","t":"priv"},{"f":"\u003ccode>ps aux\u003c/code>, \u003ccode>top\u003c/code>, \u003ccode>kill\u003c/code>","b":"ps aux lists running processes. top shows them live. \u003ccode>kill 1234\u003c/code> stops process ID 1234.","t":"priv"},{"f":"\u003ccode>/etc\u003c/code>, \u003ccode>/var/log\u003c/code>, \u003ccode>/home\u003c/code>","b":"/etc holds configuration files. /var/log holds logs. /home holds each user's personal folder.","t":"admin"},{"f":"\u003ccode>systemctl\u003c/code>","b":"Controls services: \u003ccode>systemctl status nginx\u003c/code>, \u003ccode>restart\u003c/code>, \u003ccode>stop\u003c/code>, \u003ccode>start\u003c/code>. \u003ccode>enable\u003c/code> makes it start at boot.","t":"admin"},{"f":"\u003ccode>journalctl -u nginx\u003c/code>","b":"Shows the systemd log for one service. Add \u003ccode>--since \"1 hour ago\"\u003c/code> or \u003ccode>-f\u003c/code> to follow live.","t":"admin"},{"f":"\u003ccode>df -h\u003c/code> vs \u003ccode>du -sh\u003c/code>","b":"df shows free space per filesystem. du shows how much space folders use: \u003ccode>du -sh /var/* | sort -h\u003c/code> lists the biggest last.","t":"admin"},{"f":"\u003ccode>chown user:group file\u003c/code>","b":"Changes who owns a file. \u003ccode>-R\u003c/code> applies it to a whole folder.","t":"priv"},{"f":"SSH keys","b":"\u003ccode>ssh-keygen\u003c/code> makes a key pair. The public key goes on the server (\u003ccode>ssh-copy-id\u003c/code>). The private key never leaves your machine.","t":"net"},{"f":"Package managers","b":"Debian/Ubuntu: \u003ccode>sudo apt update &amp;&amp; sudo apt upgrade\u003c/code>. Red Hat/Rocky: \u003ccode>sudo dnf update\u003c/code>. This is how servers get patched.","t":"admin"},{"f":"cron","b":"Scheduled jobs. Edit with \u003ccode>crontab -e\u003c/code>. Fields: minute hour day month weekday. \u003ccode>0 2 * * * /opt/backup.sh\u003c/code> runs at 2:00 AM daily.","t":"admin"},{"f":"\u003ccode>ss -tulpn\u003c/code>","b":"Lists listening ports and which program owns them (the modern replacement for netstat).","t":"net"},{"f":"Login logs","b":"Ubuntu: \u003ccode>/var/log/auth.log\u003c/code>. Red Hat: \u003ccode>/var/log/secure\u003c/code>. \u003ccode>grep \"Failed password\"\u003c/code> finds SSH guessing attempts.","t":"admin"},{"f":"Bash script basics","b":"Start with \u003ccode>#!/bin/bash\u003c/code>. Variables: \u003ccode>NAME=web1\u003c/code>, use \u003ccode>$NAME\u003c/code>. \u003ccode>if [ -f file ]; then ... fi\u003c/code>. Exit code \u003ccode>$?\u003c/code>: 0 = success.","t":"shell"},{"f":"\u003ccode>tar\u003c/code>","b":"\u003ccode>tar -czf logs.tar.gz logs/\u003c/code> compresses a folder. \u003ccode>tar -xzf logs.tar.gz\u003c/code> extracts it.","t":"archive"},{"f":"Deleting an open log file","b":"If a program still has the file open, \u003ccode>rm\u003c/code> does not free the space until the program restarts. Use \u003ccode>truncate -s 0 file\u003c/code> instead, then set up logrotate.","t":"admin"},{"f":"Open a file whose name is just a dash (-)","b":"\u003ccode>cat ./-\u003c/code>\u003cbr>A bare \u003ccode>-\u003c/code> means \"read from the keyboard\" to most commands; \u003ccode>./\u003c/code> turns it into a path.\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Content -LiteralPath ./-\u003c/code>\u003c/span>","t":"files"},{"f":"Open a file with spaces in its name","b":"\u003ccode>cat \"my file.txt\"\u003c/code> or \u003ccode>cat my\\ file.txt\u003c/code> Quotes (or a backslash) keep it one argument.\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Content 'my file.txt'\u003c/code>\u003c/span>","t":"files"},{"f":"Use a filename that starts with a dash, like -data","b":"\u003ccode>cat -- -data\u003c/code> or \u003ccode>cat ./-data\u003c/code> \u003ccode>--\u003c/code> means \"no more options after this\".\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Content -LiteralPath ./-data\u003c/code>\u003c/span>","t":"files"},{"f":"Jump back to the folder you were just in","b":"\u003ccode>cd -\u003c/code>\u003cbr>It also prints the folder it switched to.\u003cspan class=\"ps\">PowerShell: PowerShell 7: \u003ccode>cd -\u003c/code>\u003c/span>","t":"files"},{"f":"What does \"cat: notes: Is a directory\" mean?","b":"You tried to read a folder as a file. Use \u003ccode>ls notes\u003c/code> to see what is inside it.","t":"files"},{"f":"List hidden files but leave out . and ..","b":"\u003ccode>ls -A\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-ChildItem -Force\u003c/code>\u003c/span>","t":"files"},{"f":"Finish a long file name without typing it all","b":"Press \u003ccode>Tab\u003c/code>. Press it twice to list every match.\u003cspan class=\"ps\">PowerShell: \u003ccode>Tab\u003c/code> works the same way\u003c/span>","t":"files"},{"f":"List files newest first","b":"\u003ccode>ls -lt\u003c/code>\u003cbr>Add \u003ccode>-r\u003c/code> for oldest first.\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-ChildItem | Sort-Object LastWriteTime -Descending\u003c/code>\u003c/span>","t":"files"},{"f":"Show sizes as K, M, G in a long listing","b":"\u003ccode>ls -lh\u003c/code>","t":"files"},{"f":"Print the path of your home folder","b":"\u003ccode>echo $HOME\u003c/code> (the same folder \u003ccode>~\u003c/code> points to)\u003cspan class=\"ps\">PowerShell: \u003ccode>$HOME\u003c/code>\u003c/span>","t":"files"},{"f":"Create an empty file, or update a file's timestamp","b":"\u003ccode>touch notes.txt\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>New-Item notes.txt\u003c/code>\u003c/span>","t":"files"},{"f":"Make a symbolic link (shortcut) to a file","b":"\u003ccode>ln -s /opt/app/config.yml config.yml\u003c/code>\u003cbr>Target first, link name second.\u003cspan class=\"ps\">PowerShell: \u003ccode>New-Item -ItemType SymbolicLink -Path config.yml -Target C:\\app\\config.yml\u003c/code>\u003c/span>","t":"files"},{"f":"Show a file's exact size, owner, permissions and timestamps","b":"\u003ccode>stat file\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Item file | Format-List *\u003c/code>\u003c/span>","t":"files"},{"f":"What do the wildcards *, ? and [ab] match?","b":"\u003ccode>*\u003c/code> any number of characters, \u003ccode>?\u003c/code> exactly one, \u003ccode>[ab]\u003c/code> one of a or b. The shell expands them before the command runs.\u003cspan class=\"ps\">PowerShell: Same wildcards in \u003ccode>-Path\u003c/code>\u003c/span>","t":"files"},{"f":"Find out what kind of data a file really holds","b":"\u003ccode>file data.bin\u003c/code>\u003cbr>It reads the first bytes (the \"magic number\"), not the extension.","t":"read"},{"f":"Check the type of every file in the current folder","b":"\u003ccode>file ./*\u003c/code>\u003cbr>The \u003ccode>./\u003c/code> keeps names that start with a dash from being read as options.","t":"read"},{"f":"Pull readable text out of a binary file","b":"\u003ccode>strings program.bin\u003c/code>\u003cbr>Prints every run of 4 or more printable characters.","t":"read"},{"f":"Show a file as hex and text side by side","b":"\u003ccode>xxd file\u003c/code> or \u003ccode>hexdump -C file\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Format-Hex file\u003c/code>\u003c/span>","t":"read"},{"f":"Show only the first 64 bytes of a file as hex","b":"\u003ccode>xxd -l 64 file\u003c/code>\u003cspan class=\"ps\">PowerShell: PowerShell 7: \u003ccode>Format-Hex file -Count 64\u003c/code>\u003c/span>","t":"read"},{"f":"Print a file with line numbers","b":"\u003ccode>cat -n file\u003c/code>","t":"read"},{"f":"Print a file from line 5 to the end","b":"\u003ccode>tail -n +5 file\u003c/code>\u003cbr>The \u003ccode>+\u003c/code> means \"starting at line\", not \"last N\".\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Content file | Select-Object -Skip 4\u003c/code>\u003c/span>","t":"read"},{"f":"Print only lines 10 to 20 of a file","b":"\u003ccode>sed -n '10,20p' file\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>(Get-Content file)[9..19]\u003c/code>\u003c/span>","t":"read"},{"f":"Search while reading a file in less","b":"Type \u003ccode>/word\u003c/code> and Enter. \u003ccode>n\u003c/code> jumps to the next match, \u003ccode>N\u003c/code> to the previous, \u003ccode>q\u003c/code> quits.","t":"read"},{"f":"Get a file's exact size in bytes","b":"\u003ccode>wc -c file\u003c/code> or \u003ccode>stat -c %s file\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>(Get-Item file).Length\u003c/code>\u003c/span>","t":"read"},{"f":"Count the words or bytes in a file","b":"\u003ccode>wc -w file\u003c/code> words, \u003ccode>wc -c file\u003c/code> bytes\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Content file | Measure-Object -Word -Character\u003c/code>\u003c/span>","t":"read"},{"f":"Find only regular files, not folders","b":"\u003ccode>find . -type f\u003c/code>\u003cbr>Use \u003ccode>-type d\u003c/code> for folders only.\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-ChildItem -Recurse -File\u003c/code>\u003c/span>","t":"find"},{"f":"Find files of an exact size in bytes","b":"\u003ccode>find . -size 2048c\u003c/code>\u003cbr>\u003ccode>c\u003c/code> = bytes, \u003ccode>k\u003c/code> = KiB, \u003ccode>M\u003c/code> = MiB.\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-ChildItem -Recurse -File | Where-Object Length -eq 2048\u003c/code>\u003c/span>","t":"find"},{"f":"Find files bigger than 100 MB","b":"\u003ccode>find / -size +100M\u003c/code>\u003cbr>\u003ccode>+\u003c/code> means more than, \u003ccode>-\u003c/code> means less than.\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-ChildItem -Recurse -File | Where-Object Length -gt 100MB\u003c/code>\u003c/span>","t":"find"},{"f":"Find files owned by a given user and group","b":"\u003ccode>find / -user bob -group devs\u003c/code>","t":"find"},{"f":"Find files that are NOT executable","b":"\u003ccode>find . -type f ! -executable\u003c/code>\u003cbr>\u003ccode>!\u003c/code> flips the test that follows it.","t":"find"},{"f":"Find only files you are allowed to read","b":"\u003ccode>find . -readable\u003c/code>","t":"find"},{"f":"Hide \"Permission denied\" noise when searching from /","b":"\u003ccode>find / -name app.conf 2&gt;/dev/null\u003c/code>\u003cbr>\u003ccode>2&gt;\u003c/code> redirects error messages; /dev/null throws them away.\u003cspan class=\"ps\">PowerShell: \u003ccode>-ErrorAction SilentlyContinue\u003c/code>\u003c/span>","t":"find"},{"f":"Find files changed in the last 24 hours","b":"\u003ccode>find /var/log -mtime -1\u003c/code>\u003cbr>Use \u003ccode>-mmin -60\u003c/code> for the last hour.\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-ChildItem -Recurse | Where-Object LastWriteTime -gt (Get-Date).AddDays(-1)\u003c/code>\u003c/span>","t":"find"},{"f":"Find files by name, ignoring upper/lower case","b":"\u003ccode>find . -iname \"*.txt\"\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-ChildItem -Recurse -Filter *.txt\u003c/code> (already case-insensitive)\u003c/span>","t":"find"},{"f":"Run a command on every file find returns","b":"\u003ccode>find . -name \"*.log\" -exec gzip {} \\;\u003c/code>\u003cbr>\u003ccode>{}\u003c/code> is each file; \u003ccode>\\;\u003c/code> ends the command.\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-ChildItem -Recurse *.log | ForEach-Object { ... }\u003c/code>\u003c/span>","t":"find"},{"f":"find: -exec ... \\; vs -exec ... +","b":"\u003ccode>\\;\u003c/code> runs the command once per file. \u003ccode>+\u003c/code> passes many files to one run, which is much faster.","t":"find"},{"f":"Turn a list of files into arguments for another command","b":"\u003ccode>find . -name \"*.tmp\" -print0 | xargs -0 rm\u003c/code>\u003cbr>\u003ccode>-print0\u003c/code>/\u003ccode>-0\u003c/code> handle names with spaces.\u003cspan class=\"ps\">PowerShell: \u003ccode>... | ForEach-Object { Remove-Item $_ }\u003c/code>\u003c/span>","t":"find"},{"f":"Find files with the setuid bit set","b":"\u003ccode>find / -perm -4000 2&gt;/dev/null\u003c/code>\u003cbr>\u003ccode>-4000\u003c/code> means \"at least this bit is set\".","t":"find"},{"f":"Find where a command's program lives","b":"\u003ccode>which python3\u003c/code>\u003cbr>\u003ccode>type ls\u003c/code> also tells you if it is an alias or built-in.\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Command python\u003c/code>\u003c/span>","t":"find"},{"f":"Find a file by name fast, using a prebuilt index","b":"\u003ccode>locate sshd_config\u003c/code>\u003cbr>The index is updated by \u003ccode>updatedb\u003c/code>, so brand-new files may be missing.","t":"find"},{"f":"Search only the current folder, not subfolders","b":"\u003ccode>find . -maxdepth 1 -type f\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-ChildItem -File\u003c/code> (no \u003ccode>-Recurse\u003c/code>)\u003c/span>","t":"find"},{"f":"Match either of two names with find","b":"\u003ccode>find . \\( -name \"*.jpg\" -o -name \"*.png\" \\)\u003c/code>\u003cbr>\u003ccode>-o\u003c/code> means OR.\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-ChildItem -Recurse -Include *.jpg,*.png\u003c/code>\u003c/span>","t":"find"},{"f":"Show lines that do NOT match a pattern","b":"\u003ccode>grep -v DEBUG app.log\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Select-String -NotMatch DEBUG app.log\u003c/code>\u003c/span>","t":"filter"},{"f":"Match a whole word only (root, not chroot)","b":"\u003ccode>grep -w root /etc/passwd\u003c/code>","t":"filter"},{"f":"Count how many lines match","b":"\u003ccode>grep -c error app.log\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>(Select-String error app.log).Count\u003c/code>\u003c/span>","t":"filter"},{"f":"Print only the matching text, not the whole line","b":"\u003ccode>grep -o \"[0-9]\\+\" file\u003c/code> prints each number on its own line\u003cspan class=\"ps\">PowerShell: \u003ccode>Select-String '\\d+' file -AllMatches | ForEach-Object { $_.Matches.Value }\u003c/code>\u003c/span>","t":"filter"},{"f":"Use OR, + and ? in a grep pattern","b":"\u003ccode>grep -E \"error|warn\" app.log\u003c/code>\u003cbr>\u003ccode>-E\u003c/code> turns on extended regex.\u003cspan class=\"ps\">PowerShell: \u003ccode>Select-String 'error|warn' app.log\u003c/code>\u003c/span>","t":"filter"},{"f":"Show 2 lines before and after each match","b":"\u003ccode>grep -C 2 error app.log\u003c/code>\u003cbr>\u003ccode>-A\u003c/code> after only, \u003ccode>-B\u003c/code> before only.\u003cspan class=\"ps\">PowerShell: \u003ccode>Select-String error app.log -Context 2\u003c/code>\u003c/span>","t":"filter"},{"f":"List only the names of files that contain a match","b":"\u003ccode>grep -rl PermitRootLogin /etc\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-ChildItem -Recurse | Select-String PermitRootLogin -List | Select-Object Path\u003c/code>\u003c/span>","t":"filter"},{"f":"Sort lines alphabetically, or as numbers","b":"\u003ccode>sort file\u003c/code> alphabetical; \u003ccode>sort -n file\u003c/code> numeric (so 10 comes after 9)\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Content file | Sort-Object\u003c/code>\u003c/span>","t":"filter"},{"f":"Sort in reverse, or by the 2nd column","b":"\u003ccode>sort -r\u003c/code> reverse; \u003ccode>sort -k2\u003c/code> by column 2; \u003ccode>-t,\u003c/code> sets the separator\u003cspan class=\"ps\">PowerShell: \u003ccode>Sort-Object -Descending\u003c/code>\u003c/span>","t":"filter"},{"f":"Remove duplicate lines","b":"\u003ccode>sort -u file\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Content file | Sort-Object -Unique\u003c/code>\u003c/span>","t":"filter"},{"f":"Why must you sort before uniq?","b":"\u003ccode>uniq\u003c/code> only compares each line with the one right above it, so duplicates must be next to each other.","t":"filter"},{"f":"Keep only lines that appear exactly once","b":"\u003ccode>sort file | uniq -u\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Content file | Group-Object | Where-Object Count -eq 1 | ForEach-Object Name\u003c/code>\u003c/span>","t":"filter"},{"f":"Count each distinct line, most common first","b":"\u003ccode>sort file | uniq -c | sort -rn\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Content file | Group-Object | Sort-Object Count -Descending\u003c/code>\u003c/span>","t":"filter"},{"f":"Show only lines that are repeated","b":"\u003ccode>sort file | uniq -d\u003c/code>","t":"filter"},{"f":"Print the first field of a colon-separated file","b":"\u003ccode>cut -d: -f1 /etc/passwd\u003c/code>\u003cbr>\u003ccode>-d\u003c/code> sets the separator, \u003ccode>-f\u003c/code> picks fields.\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Content file | ForEach-Object { $_.Split(':')[0] }\u003c/code>\u003c/span>","t":"filter"},{"f":"Print the 3rd space-separated column","b":"\u003ccode>awk '{print $3}' file\u003c/code> awk splits on any run of spaces; cut does not.\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Content file | ForEach-Object { (-split $_)[2] }\u003c/code>\u003c/span>","t":"filter"},{"f":"Replace text in a stream","b":"\u003ccode>sed 's/old/new/g'\u003c/code>\u003cbr>\u003ccode>g\u003c/code> = every match on the line, not just the first.\u003cspan class=\"ps\">PowerShell: \u003ccode>-replace 'old','new'\u003c/code>\u003c/span>","t":"filter"},{"f":"Edit a file in place with sed, keeping a backup","b":"\u003ccode>sed -i.bak 's/old/new/g' file\u003c/code>\u003cbr>The original is saved as file.bak.","t":"filter"},{"f":"Change lowercase to uppercase","b":"\u003ccode>tr 'a-z' 'A-Z'\u003c/code> tr maps each character in the first set to the one in the second.\u003cspan class=\"ps\">PowerShell: \u003ccode>$text.ToUpper()\u003c/code>\u003c/span>","t":"filter"},{"f":"Remove Windows line endings (\\r) from a file","b":"\u003ccode>tr -d '\\r' &lt; in.txt &gt; out.txt\u003c/code>\u003cbr>\u003ccode>-d\u003c/code> deletes the listed characters.\u003cspan class=\"ps\">PowerShell: \u003ccode>(Get-Content in.txt) | Set-Content out.txt\u003c/code>\u003c/span>","t":"filter"},{"f":"Squeeze runs of spaces into one space","b":"\u003ccode>tr -s ' '\u003c/code>","t":"filter"},{"f":"Compare two files line by line","b":"\u003ccode>diff a.txt b.txt\u003c/code>\u003cbr>\u003ccode>&lt;\u003c/code> lines are only in a, \u003ccode>&gt;\u003c/code> lines only in b.\u003cspan class=\"ps\">PowerShell: \u003ccode>Compare-Object (Get-Content a.txt) (Get-Content b.txt)\u003c/code>\u003c/span>","t":"filter"},{"f":"Show a diff in the unified format Git uses","b":"\u003ccode>diff -u a.txt b.txt\u003c/code>\u003cbr>\u003ccode>-\u003c/code> removed, \u003ccode>+\u003c/code> added.","t":"filter"},{"f":"Print lines that two sorted files have in common","b":"\u003ccode>comm -12 a.txt b.txt\u003c/code>","t":"filter"},{"f":"Encode text as Base64","b":"\u003ccode>echo -n hi | base64\u003c/code>\u003cbr>\u003ccode>-n\u003c/code> stops echo adding a newline, which would change the output.\u003cspan class=\"ps\">PowerShell: \u003ccode>[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('hi'))\u003c/code>\u003c/span>","t":"encode"},{"f":"Decode a Base64 file","b":"\u003ccode>base64 -d file\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($s))\u003c/code>\u003c/span>","t":"encode"},{"f":"How do you recognize Base64?","b":"Only letters, digits, + and /, length a multiple of 4, often ending in = or ==.","t":"encode"},{"f":"Apply ROT13 with tr","b":"\u003ccode>tr 'A-Za-z' 'N-ZA-Mn-za-m'\u003c/code>\u003cbr>Every letter moves 13 places, so running it twice gives the original.","t":"encode"},{"f":"Turn a hex dump back into the original bytes","b":"\u003ccode>xxd -r dump.txt out.bin\u003c/code>","t":"encode"},{"f":"Turn a plain hex string into bytes","b":"\u003ccode>echo 48656c6c6f | xxd -r -p\u003c/code>\u003cbr>\u003ccode>-p\u003c/code> means plain hex, no offsets or text column.","t":"encode"},{"f":"Get a file's SHA-256 hash","b":"\u003ccode>sha256sum file\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-FileHash file\u003c/code>\u003c/span>","t":"encode"},{"f":"Check downloaded files against a list of hashes","b":"\u003ccode>sha256sum -c SHA256SUMS\u003c/code>\u003cbr>Prints OK or FAILED for each file.","t":"encode"},{"f":"Hash a string without the hidden newline","b":"\u003ccode>echo -n text | md5sum\u003c/code>\u003cbr>Without \u003ccode>-n\u003c/code>, the newline is hashed too and the result changes.","t":"encode"},{"f":"Print the character for a hex code","b":"\u003ccode>printf '\\x41'\u003c/code> prints A","t":"encode"},{"f":"Compress and decompress a file with gzip","b":"\u003ccode>gzip file\u003c/code> makes file.gz (the original is removed). \u003ccode>gunzip file.gz\u003c/code> reverses it.","t":"archive"},{"f":"Decompress a .gz but keep the compressed copy","b":"\u003ccode>gunzip -k file.gz\u003c/code>","t":"archive"},{"f":"Compress and decompress a file with bzip2","b":"\u003ccode>bzip2 file\u003c/code> makes file.bz2. \u003ccode>bunzip2 file.bz2\u003c/code> reverses it.","t":"archive"},{"f":"Read a compressed file without extracting it","b":"\u003ccode>zcat file.gz\u003c/code> (also \u003ccode>bzcat\u003c/code> for .bz2, \u003ccode>xzcat\u003c/code> for .xz)","t":"archive"},{"f":"Decompress a .xz file","b":"\u003ccode>xz -d file.xz\u003c/code>","t":"archive"},{"f":"List what is inside a tar archive","b":"\u003ccode>tar -tf archive.tar\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>tar -tf archive.tar\u003c/code> (tar.exe ships with Windows 10+)\u003c/span>","t":"archive"},{"f":"Extract any .tar.gz, .tar.bz2 or .tar.xz","b":"\u003ccode>tar -xf archive.tar.xz\u003c/code>\u003cbr>Modern tar detects the compression itself.\u003cspan class=\"ps\">PowerShell: \u003ccode>tar -xf archive.tar.gz\u003c/code>\u003c/span>","t":"archive"},{"f":"Extract a tar archive into a specific folder","b":"\u003ccode>tar -xf backup.tar -C /tmp/restore\u003c/code>","t":"archive"},{"f":"List or extract a .zip file","b":"\u003ccode>unzip -l file.zip\u003c/code> lists; \u003ccode>unzip file.zip\u003c/code> extracts\u003cspan class=\"ps\">PowerShell: \u003ccode>Expand-Archive file.zip\u003c/code>\u003c/span>","t":"archive"},{"f":"Create a .zip of a folder","b":"\u003ccode>zip -r out.zip folder/\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Compress-Archive folder out.zip\u003c/code>\u003c/span>","t":"archive"},{"f":"A decompressor says \"not in gzip format\"","b":"Run \u003ccode>file\u003c/code> on it to see its real type, rename it to the matching extension, then use that tool. Repeat until \u003ccode>file\u003c/code> says text.","t":"archive"},{"f":"Make a private scratch folder to work in","b":"\u003ccode>mktemp -d\u003c/code> creates a random folder under /tmp and prints its path\u003cspan class=\"ps\">PowerShell: \u003ccode>New-TemporaryFile\u003c/code> (a file, not a folder)\u003c/span>","t":"archive"},{"f":"SSH to a server on a non-standard port","b":"\u003ccode>ssh -p 2222 user@host\u003c/code> (lowercase -p)\u003cspan class=\"ps\">PowerShell: Same: \u003ccode>ssh -p 2222 user@host\u003c/code>\u003c/span>","t":"net"},{"f":"SSH with a private key file","b":"\u003ccode>ssh -i key.pem user@host\u003c/code>\u003cspan class=\"ps\">PowerShell: Same: \u003ccode>ssh -i key.pem user@host\u003c/code>\u003c/span>","t":"net"},{"f":"ssh refuses a key: \"UNPROTECTED PRIVATE KEY FILE\"","b":"Other users can read the key. Fix it with \u003ccode>chmod 600 key.pem\u003c/code>.\u003cspan class=\"ps\">PowerShell: Remove other users' access with \u003ccode>icacls\u003c/code>\u003c/span>","t":"net"},{"f":"Run one command on a server over SSH and come back","b":"\u003ccode>ssh user@host 'df -h'\u003c/code>","t":"net"},{"f":"Copy a file from a server to your machine","b":"\u003ccode>scp -P 2222 user@host:/path/file .\u003c/code> scp uses capital \u003ccode>-P\u003c/code> for the port; ssh uses \u003ccode>-p\u003c/code>.\u003cspan class=\"ps\">PowerShell: Same: \u003ccode>scp\u003c/code> ships with Windows\u003c/span>","t":"net"},{"f":"Copy a whole folder to a server","b":"\u003ccode>scp -r logs/ user@host:~/\u003c/code>","t":"net"},{"f":"Copy only what changed between two folders","b":"\u003ccode>rsync -av src/ user@host:/backup/\u003c/code>\u003cbr>A trailing \u003ccode>/\u003c/code> on src copies its contents, not the folder.\u003cspan class=\"ps\">PowerShell: \u003ccode>robocopy src dst /MIR\u003c/code>\u003c/span>","t":"net"},{"f":"Send text to a TCP port","b":"\u003ccode>echo hello | nc localhost 4000\u003c/code>","t":"net"},{"f":"Listen on a TCP port and print what arrives","b":"\u003ccode>nc -l 4000\u003c/code> (some versions need \u003ccode>nc -l -p 4000\u003c/code>)","t":"net"},{"f":"Check whether a port is open, without sending data","b":"\u003ccode>nc -zv host 22\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Test-NetConnection host -Port 22\u003c/code>\u003c/span>","t":"net"},{"f":"Open a TLS (SSL) connection by hand","b":"\u003ccode>openssl s_client -connect host:443\u003c/code>","t":"net"},{"f":"openssl s_client acts strangely when you type R or Q","b":"s_client treats some line starts as commands. Add \u003ccode>-quiet\u003c/code> (or \u003ccode>-ign_eof\u003c/code>) to send your text as plain data.","t":"net"},{"f":"Scan a range of ports on a machine","b":"\u003ccode>nmap -p 1-1000 host\u003c/code>\u003cbr>Only scan machines you own or are allowed to test.\u003cspan class=\"ps\">PowerShell: \u003ccode>Test-NetConnection -Port\u003c/code> checks one port at a time\u003c/span>","t":"net"},{"f":"Find out which service runs on each open port","b":"\u003ccode>nmap -sV host\u003c/code>","t":"net"},{"f":"Open a TLS connection with ncat","b":"\u003ccode>ncat --ssl host 443\u003c/code>","t":"net"},{"f":"Download a file from a URL","b":"\u003ccode>curl -O https://example.com/file.zip\u003c/code> or \u003ccode>wget https://example.com/file.zip\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Invoke-WebRequest URL -OutFile file.zip\u003c/code>\u003c/span>","t":"net"},{"f":"Show only the HTTP response headers","b":"\u003ccode>curl -I https://example.com\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>(Invoke-WebRequest URL -Method Head).Headers\u003c/code>\u003c/span>","t":"net"},{"f":"Look up the IP address of a domain","b":"\u003ccode>dig example.com +short\u003c/code> or \u003ccode>nslookup example.com\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Resolve-DnsName example.com\u003c/code>\u003c/span>","t":"net"},{"f":"Show the routing table and default gateway","b":"\u003ccode>ip route\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-NetRoute\u003c/code>\u003c/span>","t":"net"},{"f":"Show each router hop on the way to a host","b":"\u003ccode>traceroute example.com\u003c/code> (or \u003ccode>tracepath\u003c/code>)\u003cspan class=\"ps\">PowerShell: \u003ccode>tracert example.com\u003c/code>\u003c/span>","t":"net"},{"f":"Show your user ID and every group you are in","b":"\u003ccode>id\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>whoami /groups\u003c/code>\u003c/span>","t":"priv"},{"f":"List the commands you may run with sudo","b":"\u003ccode>sudo -l\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>whoami /priv\u003c/code>\u003c/span>","t":"priv"},{"f":"Switch to another user with their environment","b":"\u003ccode>su - alice\u003c/code>\u003cbr>The \u003ccode>-\u003c/code> loads their PATH and home folder.\u003cspan class=\"ps\">PowerShell: \u003ccode>runas /user:alice powershell\u003c/code>\u003c/span>","t":"priv"},{"f":"What does the s in -rwsr-x--- mean?","b":"setuid: the program runs with its owner's rights, not yours. That is how \u003ccode>passwd\u003c/code> can update /etc/shadow.","t":"priv"},{"f":"Set the setuid, setgid and sticky bits","b":"\u003ccode>chmod u+s file\u003c/code>, \u003ccode>chmod g+s dir\u003c/code>, \u003ccode>chmod +t dir\u003c/code> Sticky on /tmp: only a file's owner can delete it.","t":"priv"},{"f":"Where do system-wide cron jobs live?","b":"\u003ccode>/etc/crontab\u003c/code>, \u003ccode>/etc/cron.d/\u003c/code> and \u003ccode>/etc/cron.daily/\u003c/code> etc. Each user's own jobs: \u003ccode>crontab -l\u003c/code>.\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-ScheduledTask\u003c/code>\u003c/span>","t":"priv"},{"f":"Run a command in the background and bring it back","b":"\u003ccode>long_job &amp;\u003c/code> then \u003ccode>jobs\u003c/code> lists it, \u003ccode>fg %1\u003c/code> brings it back. Ctrl+Z pauses; \u003ccode>bg\u003c/code> resumes it in the background.\u003cspan class=\"ps\">PowerShell: \u003ccode>Start-Job { ... }\u003c/code>\u003c/span>","t":"priv"},{"f":"Keep a command running after you log out","b":"\u003ccode>nohup ./job.sh &amp;\u003c/code> (or run it inside \u003ccode>tmux\u003c/code>)","t":"priv"},{"f":"Find a process ID by name, or kill by name","b":"\u003ccode>pgrep -a nginx\u003c/code> finds; \u003ccode>pkill nginx\u003c/code> kills\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Process nginx\u003c/code> / \u003ccode>Stop-Process -Name nginx\u003c/code>\u003c/span>","t":"priv"},{"f":"kill vs kill -9","b":"\u003ccode>kill\u003c/code> sends SIGTERM (15): the program can clean up. \u003ccode>kill -9\u003c/code> sends SIGKILL: it stops instantly, with no cleanup. Try plain kill first.\u003cspan class=\"ps\">PowerShell: \u003ccode>Stop-Process -Id 1234\u003c/code> (add \u003ccode>-Force\u003c/code> for -9)\u003c/span>","t":"priv"},{"f":"Which process has a file or port open?","b":"\u003ccode>lsof /var/log/app.log\u003c/code> or \u003ccode>lsof -i :80\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-NetTCPConnection -LocalPort 80\u003c/code>\u003c/span>","t":"priv"},{"f":"Show processes as a parent/child tree","b":"\u003ccode>ps -ef --forest\u003c/code> or \u003ccode>pstree\u003c/code>","t":"priv"},{"f":"Add a user to a group without removing others","b":"\u003ccode>sudo usermod -aG docker alice\u003c/code>\u003cbr>Without \u003ccode>-a\u003c/code>, alice loses every other group.\u003cspan class=\"ps\">PowerShell: \u003ccode>Add-LocalGroupMember -Group docker -Member alice\u003c/code>\u003c/span>","t":"priv"},{"f":"Create a user with a home folder, then set a password","b":"\u003ccode>sudo useradd -m bob\u003c/code> then \u003ccode>sudo passwd bob\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>New-LocalUser bob\u003c/code>\u003c/span>","t":"priv"},{"f":"What does umask 022 do?","b":"New files get 644 and new folders 755: the group and others lose write.","t":"priv"},{"f":"Give one extra user access without changing the owner","b":"\u003ccode>setfacl -m u:bob:r file\u003c/code> and \u003ccode>getfacl file\u003c/code> to check\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Acl\u003c/code> / \u003ccode>Set-Acl\u003c/code>\u003c/span>","t":"priv"},{"f":"Show how long the system has been up and its load","b":"\u003ccode>uptime\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>(Get-CimInstance Win32_OperatingSystem).LastBootUpTime\u003c/code>\u003c/span>","t":"priv"},{"f":"Download a copy of a remote repository","b":"\u003ccode>git clone URL\u003c/code>\u003cbr>On a custom SSH port: \u003ccode>git clone ssh://user@host:2222/path/repo.git\u003c/code>.","t":"git"},{"f":"Show history with the changes in each commit","b":"\u003ccode>git log -p\u003c/code>","t":"git"},{"f":"Show what a single commit changed","b":"\u003ccode>git show 3f2a9c1\u003c/code>","t":"git"},{"f":"List every branch, including remote ones","b":"\u003ccode>git branch -a\u003c/code>","t":"git"},{"f":"Switch to an existing branch","b":"\u003ccode>git switch dev\u003c/code> (older: \u003ccode>git checkout dev\u003c/code>)","t":"git"},{"f":"List tags and see what a tag points to","b":"\u003ccode>git tag\u003c/code> then \u003ccode>git show v1.0\u003c/code>","t":"git"},{"f":"See changes that were stashed away","b":"\u003ccode>git stash list\u003c/code> then \u003ccode>git stash show -p\u003c/code>","t":"git"},{"f":"git add ignores a file. Why, and how do you check?","b":"A .gitignore rule matches it. \u003ccode>git check-ignore -v file\u003c/code> shows which rule. \u003ccode>git add -f\u003c/code> forces it.","t":"git"},{"f":"See who last changed each line of a file","b":"\u003ccode>git blame file\u003c/code>","t":"git"},{"f":"Find commits that added or removed a string","b":"\u003ccode>git log -S \"api_key\"\u003c/code>\u003cbr>Useful for spotting secrets that were committed and later deleted.","t":"git"},{"f":"Show an environment variable, or all of them","b":"\u003ccode>echo $PATH\u003c/code> one; \u003ccode>env\u003c/code> all\u003cspan class=\"ps\">PowerShell: \u003ccode>$env:PATH\u003c/code> / \u003ccode>Get-ChildItem env:\u003c/code>\u003c/span>","t":"shell"},{"f":"Set a variable that programs you start can see","b":"\u003ccode>export NAME=value\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>$env:NAME = 'value'\u003c/code>\u003c/span>","t":"shell"},{"f":"Add a folder to your PATH","b":"\u003ccode>export PATH=\"$PATH:/opt/tools/bin\"\u003c/code>\u003cbr>Add it to ~/.bashrc to keep it.\u003cspan class=\"ps\">PowerShell: \u003ccode>$env:PATH += ';C:\\tools'\u003c/code>\u003c/span>","t":"shell"},{"f":"Find out which shell you are in","b":"\u003ccode>echo $0\u003c/code> current shell; \u003ccode>echo $SHELL\u003c/code> your login shell\u003cspan class=\"ps\">PowerShell: \u003ccode>$PSVersionTable\u003c/code>\u003c/span>","t":"shell"},{"f":"Run a shell command from inside vim","b":"\u003ccode>:!ls\u003c/code> runs one command; \u003ccode>:sh\u003c/code> opens a shell (exit returns to vim).","t":"shell"},{"f":"Open an editor from inside less or more","b":"Press \u003ccode>v\u003c/code>. It opens the file in your editor (usually vi).","t":"shell"},{"f":"Repeat the last command, or search your history","b":"\u003ccode>!!\u003c/code> repeats it; \u003ccode>sudo !!\u003c/code> repeats it as root; Ctrl+R searches.\u003cspan class=\"ps\">PowerShell: Ctrl+R / \u003ccode>Get-History\u003c/code>\u003c/span>","t":"shell"},{"f":"Get help for a command","b":"\u003ccode>man tar\u003c/code> or \u003ccode>tar --help\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Help Get-Process\u003c/code>\u003c/span>","t":"shell"},{"f":"Put a command's output inside another command","b":"\u003ccode>echo \"Today is $(date)\"\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>\"Today is $(Get-Date)\"\u003c/code>\u003c/span>","t":"shell"},{"f":"Single vs double quotes in bash","b":"Single quotes keep everything literal. Double quotes still expand \u003ccode>$VAR\u003c/code> and \u003ccode>$(...)\u003c/code>.\u003cspan class=\"ps\">PowerShell: PowerShell uses the same rule\u003c/span>","t":"shell"},{"f":"Make a short alias for a long command","b":"\u003ccode>alias ll='ls -la'\u003c/code>\u003cbr>Put it in ~/.bashrc to keep it.\u003cspan class=\"ps\">PowerShell: \u003ccode>Set-Alias ll Get-ChildItem\u003c/code>\u003c/span>","t":"shell"},{"f":"Reload ~/.bashrc without logging out","b":"\u003ccode>source ~/.bashrc\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>. $PROFILE\u003c/code>\u003c/span>","t":"shell"},{"f":"Loop over files in bash","b":"\u003ccode>for f in *.log; do gzip \"$f\"; done\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>foreach ($f in Get-ChildItem *.log) { ... }\u003c/code>\u003c/span>","t":"shell"},{"f":"Read a file line by line in bash","b":"\u003ccode>while read -r line; do echo \"$line\"; done &lt; file\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Content file | ForEach-Object { ... }\u003c/code>\u003c/span>","t":"shell"},{"f":"Do quick math in the shell","b":"\u003ccode>echo $((5*7))\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>5*7\u003c/code>\u003c/span>","t":"shell"},{"f":"Measure how long a command takes","b":"\u003ccode>time ./build.sh\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Measure-Command { ./build.ps1 }\u003c/code>\u003c/span>","t":"shell"},{"f":"What are stdin, stdout and stderr numbered?","b":"0 = input, 1 = normal output, 2 = error messages","t":"redirect"},{"f":"Save only the error messages to a file","b":"\u003ccode>./run.sh 2&gt; errors.txt\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>./run.ps1 2&gt; errors.txt\u003c/code>\u003c/span>","t":"redirect"},{"f":"Throw output away","b":"\u003ccode>&gt; /dev/null\u003c/code> for output, \u003ccode>2&gt;/dev/null\u003c/code> for errors\u003cspan class=\"ps\">PowerShell: \u003ccode>&gt; $null\u003c/code> or \u003ccode>| Out-Null\u003c/code>\u003c/span>","t":"redirect"},{"f":"Send output and errors to the same file","b":"\u003ccode>./run.sh &gt; all.log 2&gt;&amp;1\u003c/code> (order matters) or \u003ccode>./run.sh &amp;&gt; all.log\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>./run.ps1 *&gt; all.log\u003c/code>\u003c/span>","t":"redirect"},{"f":"Pipe error messages into grep too","b":"\u003ccode>./run.sh 2&gt;&amp;1 | grep -i fail\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>./run.ps1 2&gt;&amp;1 | Select-String fail\u003c/code>\u003c/span>","t":"redirect"},{"f":"Feed a file into a command's input","b":"\u003ccode>sort &lt; names.txt\u003c/code>\u003cspan class=\"ps\">PowerShell: No \u003ccode>&lt;\u003c/code> in PowerShell: \u003ccode>Get-Content names.txt | Sort-Object\u003c/code>\u003c/span>","t":"redirect"},{"f":"Save output to a file and still see it","b":"\u003ccode>./scan.sh | tee scan.txt\u003c/code>\u003cbr>\u003ccode>tee -a\u003c/code> appends.\u003cspan class=\"ps\">PowerShell: \u003ccode>./scan.ps1 | Tee-Object scan.txt\u003c/code>\u003c/span>","t":"redirect"},{"f":"Write several lines into a command (here-document)","b":"\u003ccode>cat &lt;&lt;EOF &gt; notes.txt\u003c/code> ... lines ... \u003ccode>EOF\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>@' ... '@ | Set-Content notes.txt\u003c/code>\u003c/span>","t":"redirect"},{"f":"Run a second command only if the first worked","b":"\u003ccode>make &amp;&amp; make install\u003c/code>\u003cbr>\u003ccode>||\u003c/code> runs only on failure; \u003ccode>;\u003c/code> always runs.\u003cspan class=\"ps\">PowerShell: \u003ccode>;\u003c/code> only in PowerShell 5.1 (\u003ccode>&amp;&amp;\u003c/code> and \u003ccode>||\u003c/code> need PowerShell 7)\u003c/span>","t":"redirect"},{"f":"Show disks, partitions and where they are mounted","b":"\u003ccode>lsblk\u003c/code> and \u003ccode>findmnt\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-Disk\u003c/code> / \u003ccode>Get-Volume\u003c/code>\u003c/span>","t":"admin"},{"f":"Re-run a command every 2 seconds","b":"\u003ccode>watch -n 2 df -h\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>while ($true) { ...; Start-Sleep 2 }\u003c/code>\u003c/span>","t":"admin"},{"f":"Check and open the Ubuntu firewall","b":"\u003ccode>sudo ufw status\u003c/code> and \u003ccode>sudo ufw allow 22/tcp\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-NetFirewallRule\u003c/code>\u003c/span>","t":"admin"},{"f":"See who is logged in and recent logins","b":"\u003ccode>who\u003c/code> now; \u003ccode>last\u003c/code> history","t":"admin"},{"f":"Show the kernel and Linux version","b":"\u003ccode>uname -a\u003c/code> and \u003ccode>cat /etc/os-release\u003c/code>\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-ComputerInfo\u003c/code>\u003c/span>","t":"admin"},{"f":"Show which DNS servers the system uses","b":"\u003ccode>resolvectl status\u003c/code> (or \u003ccode>cat /etc/resolv.conf\u003c/code>)\u003cspan class=\"ps\">PowerShell: \u003ccode>Get-DnsClientServerAddress\u003c/code>\u003c/span>","t":"admin"}],"topics":[["files","Files & names"],["read","Reading & identifying"],["find","Finding"],["filter","Filtering text"],["encode","Encoding & hashing"],["archive","Archives"],["net","Networking"],["priv","Users, processes & privilege"],["git","Git"],["shell","Shell & environment"],["redirect","Redirection"],["admin","Admin"]],"guide":[["files","read"],["find","filter"],["encode","archive"],["net"],["priv","shell"],["git"]]};
+const $ = id => document.getElementById(id);
+const store = { get(k, d) { try { return localStorage.getItem(k) || d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+const text = h => h.replace(/<[^>]+>/g, ' ').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').toLowerCase();
+const names = Object.fromEntries(D.topics);
+let active = new Set(), list = [];
+
+/* color modes, same three as SkillQuest */
+const THEMES = ['matrix', 'cyber', 'amber'];
+function theme(t) { document.documentElement.dataset.theme = t; $('themeBtn').textContent = '◐ ' + t; store.set('deck-theme', t); }
+$('themeBtn').onclick = () => theme(THEMES[(THEMES.indexOf(document.documentElement.dataset.theme) + 1) % 3]);
+theme(store.get('deck-theme', 'matrix'));
+
+/* code rain (from SkillQuest) */
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const rain = (function () {
+  const cv = $('rain'), ctx = cv.getContext('2d');
+  const glyphs = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEF<>/{}$#';
+  let cols = [], fs = 16, on = false, last = 0, raf = null;
+  function size() { cv.width = innerWidth; cv.height = innerHeight; cols = Array(Math.ceil(cv.width / fs)).fill(0).map(() => Math.random() * -60); }
+  function frame(ts) {
+    raf = requestAnimationFrame(frame);
+    if (ts - last < 55) return; last = ts;
+    ctx.fillStyle = 'rgba(0,0,0,0.12)'; ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#39ff88';
+    ctx.font = fs + 'px monospace';
+    cols.forEach((y, i) => { ctx.fillText(glyphs[Math.floor(Math.random() * glyphs.length)], i * fs, y * fs); cols[i] = (y * fs > cv.height && Math.random() > 0.975) ? 0 : y + 1; });
+  }
+  addEventListener('resize', () => on && size());
+  return {
+    set(v) { on = v; $('rainBtn').style.opacity = v ? 1 : .5;
+      if (v && !raf) { size(); raf = requestAnimationFrame(frame); }
+      if (!v && raf) { cancelAnimationFrame(raf); raf = null; ctx.clearRect(0, 0, cv.width, cv.height); } },
+    get on() { return on; }
+  };
+})();
+rain.set(!calm && store.get('deck-rain', 'on') === 'on');
+$('rainBtn').onclick = () => { rain.set(!rain.on); store.set('deck-rain', rain.on ? 'on' : 'off'); };
+
+/* study guide + topic chips */
+D.cards.forEach(c => c.s = text(c.f + ' ' + c.b));
+D.guide.forEach(g => {
+  const li = document.createElement('li'), b = document.createElement('button');
+  li.className = 'card'; li.dataset.g = g.slice().sort().join(',');
+  b.type = 'button';
+  b.innerHTML = g.map(t => names[t]).join(' + ') + '<small>' + D.cards.filter(c => g.includes(c.t)).length + ' cards</small>';
+  b.onclick = () => { active = new Set(li.dataset.on === 'true' ? [] : g); sync(); };
+  li.append(b); $('guide').append(li);
+});
+D.topics.forEach(([t, n]) => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'chip'; b.dataset.t = t;
+  b.textContent = n + ' ' + D.cards.filter(c => c.t === t).length;
+  b.onclick = () => { active.has(t) ? active.delete(t) : active.add(t); sync(); };
+  $('chips').append(b);
+});
+
+function sync() {
+  document.querySelectorAll('.chip').forEach(b => b.setAttribute('aria-pressed', active.has(b.dataset.t)));
+  const key = [...active].sort().join(',');
+  document.querySelectorAll('.guide li').forEach(li => li.dataset.on = key !== '' && li.dataset.g === key);
+  render();
+}
+function render() {
+  const q = $('q').value.trim().toLowerCase(), all = $('reveal').checked;
+  list = D.cards.filter(c => (!active.size || active.has(c.t)) && (!q || q.split(/\s+/).every(w => c.s.includes(w))));
+  $('grid').replaceChildren(...list.map(c => {
+    const el = document.createElement('article'); el.className = 'card';
+    const btn = document.createElement('button'); btn.className = 'face'; btn.setAttribute('aria-expanded', all);
+    btn.innerHTML = '<div class="tag">' + names[c.t] + '</div><div class="f">' + c.f + '</div>' + (all ? '' : '<div class="hint">click to reveal</div>');
+    const back = document.createElement('div'); back.className = 'b'; back.innerHTML = c.b; back.hidden = !all;
+    btn.onclick = () => { back.hidden = !back.hidden; btn.setAttribute('aria-expanded', !back.hidden); const h = btn.querySelector('.hint'); if (h) h.hidden = !back.hidden; };
+    el.append(btn, back); return el;
+  }));
+  $('count').textContent = '> ' + list.length + ' of ' + D.cards.length + ' cards';
+  $('empty').hidden = list.length > 0;
+  $('drillBtn').disabled = !list.length;
+}
+
+/* drill: one card at a time, shuffled from the current filter */
+let deck = [], pos = 0, flipped = false;
+function show() {
+  const c = deck[pos];
+  $('dPos').textContent = 'card ' + (pos + 1) + ' / ' + deck.length;
+  $('dTag').textContent = names[c.t];
+  $('dFlash').className = 'flash' + (flipped ? ' back' : '');
+  $('dFlash').innerHTML = flipped ? '<div>' + c.b + '</div>' : '<div class="f">' + c.f + '</div><div class="hint">space to flip</div>';
+}
+function flip() { flipped = !flipped; show(); }
+function next() { pos = (pos + 1) % deck.length; flipped = false; show(); }
+function closeDrill() { $('drill').hidden = true; $('drillBtn').focus(); }
+$('drillBtn').onclick = () => {
+  deck = list.slice(); for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; }
+  pos = 0; flipped = false; $('drill').hidden = false; show(); $('dFlash').focus();
+};
+$('dFlash').onclick = flip; $('dFlip').onclick = flip; $('dNext').onclick = next; $('dClose').onclick = closeDrill;
+$('drill').onclick = e => { if (e.target === $('drill')) closeDrill(); };
+addEventListener('keydown', e => {
+  if ($('drill').hidden) return;
+  if (e.key === ' ') { e.preventDefault(); flip(); } else if (e.key === 'ArrowRight') next(); else if (e.key === 'Escape') closeDrill();
+});
+
+$('q').oninput = render;
+$('reveal').onchange = render;
+$('ps').onchange = () => document.body.classList.toggle('show-ps', $('ps').checked);
+document.body.classList.add('show-ps');
+render();
+</script>
 </body>
 </html>
