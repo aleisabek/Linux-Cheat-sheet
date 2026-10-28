@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="t">
+  <title id="t">Linux &amp; Bandit Flashcards: a flashcard wearing a bandit mask whose eyes are a terminal prompt</title>
+  <!-- the card underneath, tilted: the "other side" you flip to -->
+  <rect x="58" y="34" width="168" height="184" rx="18" transform="rotate(9 142 126)" fill="#04131c" stroke="#00d1ff" stroke-width="6"/>
+  <!-- front card with a folded corner (the flip) -->
+  <path d="M52 48 H164 L204 88 V200 Q204 216 188 216 H52 Q36 216 36 200 V64 Q36 48 52 48 Z" fill="#061a10" stroke="#39ff88" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M164 48 V76 Q164 88 176 88 H204 Z" fill="#00d1ff" stroke="#00d1ff" stroke-width="6" stroke-linejoin="round"/>
+  <!-- bandit mask; its eye holes are a prompt: > and _ -->
+  <path d="M60 110 C72 90 112 94 120 106 C128 94 168 90 180 110 C189 127 175 150 150 148 C134 147 126 138 120 133 C114 138 106 147 90 148 C65 150 51 127 60 110 Z" fill="#39ff88"/>
+  <path d="M59 116 C50 118 45 126 40 134 M60 124 C53 128 50 136 47 144" fill="none" stroke="#39ff88" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="90" cy="121" rx="21" ry="14" fill="#061a10"/>
+  <ellipse cx="150" cy="121" rx="21" ry="14" fill="#061a10"/>
+  <path d="M83 114 L95 121 L83 128" fill="none" stroke="#39ff88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M141 127 H159" stroke="#39ff88" stroke-width="5" stroke-linecap="round"/>
+  <!-- card text lines -->
+  <path d="M60 176 H146 M60 194 H118" stroke="#6fae86" stroke-width="7" stroke-linecap="round"/>
+</svg>
